@@ -1,11 +1,11 @@
 /***********************************
  **
- ** Integer relations package (identify.mac)
+ ** Integer relations package (guess_exact_value.mac)
  **
  ** Copyright: 2006, Andrej Vodopivec <andrej.vodopivec@gmail.com>
  ** Licence:   GPL
  **
- **   identify.mac implements identify function, which is used
+ **   guess_exact_value.mac implements guess_exact_value function, which is used
  **   to identify floating point numbers as functions of known constatns.
  **
  ** For detailed description see
@@ -18,15 +18,15 @@
 
   (%i2) float(%e^2+%e-1);
   (%o2) 9.107337927389695
-  (%i3) identify(%);
+  (%i3) guess_exact_value(%);
   (%o3) %e^2+%e-1
   (%i4) float(sin(%pi/30));
   (%o4) 0.10452846326765
-  (%i5) identify(%);
+  (%i5) guess_exact_value(%);
   (%o5) (sqrt(sqrt(5)-1)*sqrt(15))/(4*sqrt(2)*5^(1/4))-sqrt(5)/8-1/8
   (%i6) float(%pi*%e/2);
   (%o6) 4.269867111336783
-  (%i7) identify(%);
+  (%i7) guess_exact_value(%);
   (%o7) (%e*%pi)/2
 
  ***********************/
@@ -59,7 +59,7 @@ identify_integer_relation(x, [treshold]) := block(
   relation
 )$
 
-identify(x) :=
+guess_exact_value(x) :=
   if atom(x) then (
     if floatnump(x) or bfloatp(x) then block(
       [res],
@@ -86,7 +86,7 @@ identify(x) :=
     else x
   )
   else
-    map(identify, x)$
+    map(guess_exact_value, x)$
 
 identify_as_sum(x) := block(
   [floats, relation, res : false, i,
