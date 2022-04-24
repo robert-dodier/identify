@@ -63,6 +63,8 @@ identify(x) :=
   if atom(x) then (
     if floatnump(x) or bfloatp(x) then block(
       [res],
+      if equal(x, 0) or equal(x, -1) or equal(x, 1)
+        then return(floor(x)),
       if errcatch (
         res : identify_as_algebraic(x)
       ) = [] then res : false,
