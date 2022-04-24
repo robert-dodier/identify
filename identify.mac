@@ -46,7 +46,10 @@ define_variable(identify_powersum_min_degree,
 define_variable(identify_algebraic_degree,
   4, fixnum)$
 
-if get(integer_relation, version)=false then load("integer_relation")$
+if get(integer_relation, version)=false
+  then if load_pathname # false
+         then load (sconcat (pathname_directory (load_pathname), "/integer_relation.lisp"))
+       else load ("integer_relation.lisp");
 
 identify_integer_relation(x, [treshold]) := block(
   [relation : integer_relation(x)],
