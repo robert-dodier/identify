@@ -51,11 +51,11 @@ if get(integer_relation, version)=false
          then load (sconcat (pathname_directory (load_pathname), "/integer_relation.lisp"))
        else load ("integer_relation.lisp");
 
-identify_integer_relation(x, [treshold]) := block(
+identify_integer_relation(x, [threshold]) := block(
   [relation : integer_relation(x)],
-  if length(treshold)#1 then treshold:100 else treshold:treshold[1],
+  if length(threshold)#1 then threshold:100 else threshold:threshold[1],
   if relation=false then return(false),
-  if apply("+", (map(abs, relation)))>treshold then return(false),
+  if apply("+", (map(abs, relation)))>threshold then return(false),
   relation
 )$
 

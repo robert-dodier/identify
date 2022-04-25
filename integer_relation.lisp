@@ -45,7 +45,7 @@
           nil))))
 
 (defmvar $pslq_precision nil)
-(defmvar $pslq_treshold nil)
+(defmvar $pslq_threshold nil)
 (defmvar $pslq_depth nil)
 (defmvar $pslq_status 0)
 
@@ -68,7 +68,7 @@
 	(s (make-array `(,n) :initial-element 0))
 	(y (make-array `(,n) :initial-element 0))
 	($pslq_precision (if $pslq_precision $pslq_precision (power 10 (- $fpprec 2))))
-	($pslq_treshold (if $pslq_treshold $pslq_treshold (power 10 (- 2 $fpprec))))
+	($pslq_threshold (if $pslq_threshold $pslq_threshold (power 10 (- 2 $fpprec))))
 	($pslq_depth (if $pslq_depth $pslq_depth (* 20 n)))
 	(tt))
     
@@ -162,7 +162,7 @@
 	  
 	  ;; Check to see if we have a relation
 	  (loop for j from 0 to (1- n) do
-               (if (mlsp (mabs (aref y j)) $pslq_treshold)
+               (if (mlsp (mabs (aref y j)) $pslq_threshold)
                    (progn
                      (let ((ans ()))
                        (loop for i from 0 to (1- n) do
