@@ -13,7 +13,7 @@
 ;;   For a given vector x of floating point numbers we want to find a
 ;;   vector of integers m such that m.x=0 (in given precision).
 ;;
-;;   Uses PLSQ algorithm:
+;;   Uses PSLQ algorithm:
 ;;     D.H.Bailey: Integer Relation Detection and Lattice Reduction.
 ;;
 ;;;;;;;;;;;;;;;;;;
@@ -170,7 +170,7 @@
                        (setq $pslq_status 1)
                        (return-from integer-relations ans)))))
 	  
-	  ;; Check to see if we exsausted the precision
+	  ;; Check to see if we exhausted the precision
 	  (loop for i from 0 to (1- n) do
                (loop for j from 0 to (1- n) do
                     (if (mlsp $pslq_precision (mabs (aref A i j)))
