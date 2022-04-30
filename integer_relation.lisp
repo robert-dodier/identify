@@ -51,7 +51,7 @@
 
 (defmvar $pslq_fail_norm nil)
 
-(defun mabs (x)
+(defun my-mabs (x)
   (if (mlsp x 0) (m- x) x))
 
 (defun nearest-integer (x)
@@ -111,10 +111,10 @@
 	;; Find maximal value in H
 	(loop for i from 0 to (m- n 2) do
              (setq s (* gamma s))
-             (if (mlsp mm (m* s (mabs (aref H i i))))
+             (if (mlsp mm (m* s (my-mabs (aref H i i))))
                  (progn
                    (setf m i)
-                   (setf mm (m* (expt gamma i) (mabs (aref H i i)))))))
+                   (setf mm (m* (expt gamma i) (my-mabs (aref H i i)))))))
 	
 	;; Swap entries in y
 	(rotatef (aref y m) (aref y (1+ m)))
@@ -154,7 +154,7 @@
 	  (loop for j from 0 to (1- n) do
                (let ((absHj 0))
                  (loop for i from 0 to (- n 2) do
-                      (if (mlsp absHj (mabs (aref H j i)))
+                      (if (mlsp absHj (my-mabs (aref H j i)))
                           (setq absHj (aref H j i))))
                  (if (mlsp maxNorm absHj)
                      (setq maxNorm absHj))))
@@ -162,7 +162,7 @@
 	  
 	  ;; Check to see if we have a relation
 	  (loop for j from 0 to (1- n) do
-               (if (mlsp (mabs (aref y j)) $pslq_threshold)
+               (if (mlsp (my-mabs (aref y j)) $pslq_threshold)
                    (progn
                      (let ((ans ()))
                        (loop for i from 0 to (1- n) do
@@ -173,7 +173,7 @@
 	  ;; Check to see if we exhausted the precision
 	  (loop for i from 0 to (1- n) do
                (loop for j from 0 to (1- n) do
-                    (if (mlsp $pslq_precision (mabs (aref A i j)))
+                    (if (mlsp $pslq_precision (my-mabs (aref A i j)))
                         (progn
                           (setq $pslq_status 2)
                           (return-from integer-relations nil)))))
