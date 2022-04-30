@@ -41,7 +41,8 @@ which is nearly equal to the given number.
 If @code{guess_exact_value} cannot find such an expression,
 @var{x} is returned unchanged.
 
-When @var{x} is an atom, but not a float or bigfloat,
+When @var{x} is rational number or other mapatom
+(other than a float or bigfloat),
 @var{x} is returned unchanged.
 
 Otherwise, @var{x} is a nonatomic expression,

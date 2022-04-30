@@ -60,7 +60,7 @@ identify_integer_relation(x, [threshold]) := block(
 )$
 
 guess_exact_value(x) :=
-  if atom(x) then (
+  if mapatom(x) then (
     if floatnump(x) or bfloatp(x) then block(
       [res],
       if equal(x, 0) or equal(x, -1) or equal(x, 1)
