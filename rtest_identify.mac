@@ -1,8 +1,21 @@
 (kill (all),
+ reset (),
  if ?mget ('guess_exact_value, '?mexpr) = false
      then load ("identify.mac"),
  0);
 0;
+
+(root: float (sin (%pi/12)),
+ L: makelist (root^i, i, 0, 4),
+ m: pslq_integer_relation(%%));
+[- 1, 0, 16, 0, - 16];
+
+/* verify that this is the small number we expect it to be */
+float (10^(2 - fpprec));
+1.0E-14;
+
+is (abs (m . L) < 10^(2 - fpprec));
+true;
 
 guess_exact_value (0.0);
 0;
