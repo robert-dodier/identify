@@ -1,7 +1,7 @@
 \input texinfo
 
-@setfilename guess_exact_value.info
-@settitle Package guess_exact_value
+@setfilename identify.info
+@settitle Package identify
 
 @ifinfo
 @macro var {expr}
@@ -11,26 +11,32 @@
 
 @dircategory Mathematics/Maxima
 @direntry
-* Package guess_exact_value: (maxima)Function to guess an exact equivalent for an inexact number
+* Package identify: (maxima)Function to guess an exact equivalent for an inexact number
 @end direntry
 
-@node Top, Introduction to package guess_exact_value, (dir), (dir)
+@node Top, Introduction to package identify, (dir), (dir)
 @top
 @menu
-* Introduction to package guess_exact_value::
-* Definitions for package guess_exact_value::
+* Introduction to package identify::
+* Definitions for package identify::
 * Function and variable index::
 @end menu
-@chapter Package guess_exact_value
+@chapter Package identify
 
-@node Introduction to package guess_exact_value, Definitions for package guess_exact_value, Top, Top
-@section Introduction to package guess_exact_value
+@node Introduction to package identify, Definitions for package identify, Top, Top
+@section Introduction to package identify
 
-Package @code{guess_exact_value} contains a function of the same name
-for guessing an exact equivalent for an inexact number (float or bigfloat).
+Package @code{identify} contains two functions.
 
-@node Definitions for package guess_exact_value, Function and variable index, Introduction to package guess_exact_value, Top
-@section Definitions for package guess_exact_value
+(1) @code{guess_exact_value} tries to find
+an exact equivalent for an inexact number (float or bigfloat).
+
+(2) @code{integer_relation} tries to find
+integer coefficients such that a linear combination of inexact numbers
+is approximately zero.
+
+@node Definitions for package identify, Function and variable index, Introduction to package identify, Top
+@section Definitions for package identify
 
 @deffn {Function} guess_exact_value (@var{x})
 
@@ -51,7 +57,7 @@ and @code{guess_exact_value} is applied to each of the arguments of @var{x}.
 Example:
 
 @c ===beg===
-@c load ("guess_exact_value.mac");
+@c load ("identify.mac");
 @c root: float (sin (%pi/12));
 @c guess_exact_value (root);
 @c L: makelist (root^i, i, 0, 4);
@@ -60,8 +66,8 @@ Example:
 @c solve(%);
 @c ===end===
 @example
-(%i1) load ("guess_exact_value.mac");
-(%o1)                 guess_exact_value.mac
+(%i1) load ("identify.mac");
+(%o1)                     identify.mac
 (%i2) root: float (sin (%pi/12));
 (%o2)                  0.2588190451025207
 (%i3) guess_exact_value (root);
@@ -100,7 +106,7 @@ such that @code{@var{m} . @var{L} = 0}
 Example:
 
 @c ===beg===
-@c load ("guess_exact_value.mac");
+@c load ("identify.mac");
 @c root: float (sin (%pi/12));
 @c L: makelist (root^i, i, 0, 4);
 @c m: integer_relation(%);
@@ -109,8 +115,8 @@ Example:
 @c is (abs (m . L) < 10^(2 - fpprec));
 @c ===end===
 @example
-(%i1) load ("guess_exact_value.mac");
-(%o1)                 guess_exact_value.mac
+(%i1) load ("identify.mac");
+(%o1)                     identify.mac
 (%i2) root: float (sin (%pi/12));
 (%o2)                  0.2588190451025207
 (%i3) L: makelist (root^i, i, 0, 4);
@@ -172,7 +178,7 @@ because the number of iterations @code{pslq_depth} was reached.
 @c @defvr {Variable} pslq_fail_norm
 @c @end defvr
 
-@node Function and variable index,  , Definitions for package guess_exact_value, Top
+@node Function and variable index,  , Definitions for package identify, Top
 @appendix Function and variable index
 @printindex fn
 @printindex vr

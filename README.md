@@ -1,7 +1,7 @@
-# guess\_exact\_value
+# identify
 A [maxima](http://maxima.sf.net/) package for recognition of floats.
 
-    (%i1) load("guess_exact_value.mac")$
+    (%i1) load("identify.mac")$
     (%i2) root: float(sin(%pi/12))$
     (%i3) guess_exact_value(root);
     (%o3) sqrt(2-sqrt(3))/2

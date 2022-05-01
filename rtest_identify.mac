@@ -1,6 +1,6 @@
 (kill (all),
  if ?mget ('guess_exact_value, '?mexpr) = false
-     then load ("guess_exact_value.mac"),
+     then load ("identify.mac"),
  0);
 0;
 

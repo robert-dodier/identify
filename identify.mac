@@ -1,11 +1,11 @@
 /***********************************
  **
- ** Integer relations package (guess_exact_value.mac)
+ ** Integer relations package (identify.mac)
  **
  ** Copyright: 2006, Andrej Vodopivec <andrej.vodopivec@gmail.com>
  ** Licence:   GPL
  **
- **   guess_exact_value.mac implements guess_exact_value function, which is used
+ **   identify.mac implements guess_exact_value function, which is used
  **   to identify floating point numbers as functions of known constatns.
  **
  ** For detailed description see
