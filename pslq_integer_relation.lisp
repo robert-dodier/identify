@@ -19,13 +19,13 @@
 ;;;;;;;;;;;;;;;;;;
 
 (in-package :maxima)
-(macsyma-module integer_relation)
+(macsyma-module pslq_integer_relation)
 
-($put '$integer_relation 1.0 '$version)
+($put '$pslq_integer_relation 1.0 '$version)
 
-(defmfun $integer_relation (l)
+(defmfun $pslq_integer_relation (l)
   (if (not ($listp l))
-      (merror "Argument to `integer_relation' not a list."))
+      (merror (intl:gettext "pslq_integer_relation: argument must be a list; found: ~M") l))
   (let* ((n ($length l)) (l (cdr l)) (a (make-array n)) ($float2bf t))
     (loop for i from 0 to (1- n) do
          (let ((elm (car l)))
@@ -34,12 +34,12 @@
                (progn
                  (setq elm ($bfloat elm))
                  (if (not ($freeof '$%i elm))
-                     (return-from $integer_relation nil))
+                     (return-from $pslq_integer_relation nil))
                  (if (not ($bfloatp elm))
-                     (merror "Non-bfloat element in argument to `integer_relation':~%~M.~%" elm))
+                     (merror (intl:gettext "pslq_integer_relation: element can't be converted to bigfloat: ~M") elm))
                  (setf (aref a i) elm))))
          (setq l (cdr l)))
-    (let ((ans (integer-relations a n)))
+    (let ((ans (pslq-integer-relations a n)))
       (if ans
 	  `((mlist simp) ,@ans)
           nil))))
@@ -51,16 +51,16 @@
 
 (defmvar $pslq_fail_norm nil)
 
-(defun my-mabs (x)
+(defun pslq-mabs (x)
   (if (mlsp x 0) (m- x) x))
 
-(defun nearest-integer (x)
+(defun pslq-nearest-integer (x)
   (let ((nx ($entier x)))
     (if (mlsp 0.5 (m- x nx))
 	(1+ nx)
         nx)))
 
-(defun integer-relations (x n)
+(defun pslq-integer-relations (x n)
   (let ((A (make-array `(,n ,n) :initial-element 0))
 	(B (make-array `(,n ,n) :initial-element 0))
 	(H (make-array `(,n ,(1- n)) :initial-element 0))
@@ -97,7 +97,7 @@
     ;; Perform reduction on H, update A, B, y
     (loop for i from 1 to (- n 1) do
          (loop for j from (1- i) downto 0 do
-              (setq tt (nearest-integer (m// (aref H i j) (aref H j j))))
+              (setq tt (pslq-nearest-integer (m// (aref H i j) (aref H j j))))
               (setf (aref y j) (m+ (aref y j) (m* tt (aref y i))))
               (loop for k from 0 to j do
                    (setf (aref H i k) (m- (aref H i k) (m* tt (aref H j k)))))
@@ -111,10 +111,10 @@
 	;; Find maximal value in H
 	(loop for i from 0 to (m- n 2) do
              (setq s (* gamma s))
-             (if (mlsp mm (m* s (my-mabs (aref H i i))))
+             (if (mlsp mm (m* s (pslq-mabs (aref H i i))))
                  (progn
                    (setf m i)
-                   (setf mm (m* (expt gamma i) (my-mabs (aref H i i)))))))
+                   (setf mm (m* (expt gamma i) (pslq-mabs (aref H i i)))))))
 	
 	;; Swap entries in y
 	(rotatef (aref y m) (aref y (1+ m)))
@@ -141,7 +141,7 @@
 	;; Block reduction on H
 	(loop for i from (1+ m) to (1- n) do
              (loop for j from (min (1- i) (1+ m)) downto 0 do
-                  (setq tt (nearest-integer (m// (aref H i j) (aref H j j))))
+                  (setq tt (pslq-nearest-integer (m// (aref H i j) (aref H j j))))
                   (setf (aref y j) (m+ (aref y j) (m* tt (aref y i))))
                   (loop for k from 0 to j do
                        (setf (aref H i k) (m- (aref H i k) (m* tt (aref H j k)))))
@@ -154,7 +154,7 @@
 	  (loop for j from 0 to (1- n) do
                (let ((absHj 0))
                  (loop for i from 0 to (- n 2) do
-                      (if (mlsp absHj (my-mabs (aref H j i)))
+                      (if (mlsp absHj (pslq-mabs (aref H j i)))
                           (setq absHj (aref H j i))))
                  (if (mlsp maxNorm absHj)
                      (setq maxNorm absHj))))
@@ -162,21 +162,21 @@
 	  
 	  ;; Check to see if we have a relation
 	  (loop for j from 0 to (1- n) do
-               (if (mlsp (my-mabs (aref y j)) $pslq_threshold)
+               (if (mlsp (pslq-mabs (aref y j)) $pslq_threshold)
                    (progn
                      (let ((ans ()))
                        (loop for i from 0 to (1- n) do
                             (setq ans (append ans `(,(aref B i j)))))
                        (setq $pslq_status 1)
-                       (return-from integer-relations ans)))))
+                       (return-from pslq-integer-relations ans)))))
 	  
 	  ;; Check to see if we exhausted the precision
 	  (loop for i from 0 to (1- n) do
                (loop for j from 0 to (1- n) do
-                    (if (mlsp $pslq_precision (my-mabs (aref A i j)))
+                    (if (mlsp $pslq_precision (pslq-mabs (aref A i j)))
                         (progn
                           (setq $pslq_status 2)
-                          (return-from integer-relations nil)))))
+                          (return-from pslq-integer-relations nil)))))
 	  )))
     (setq $pslq_status 3)
-    (return-from integer-relations nil) ))
+    (return-from pslq-integer-relations nil) ))

@@ -8,6 +8,6 @@
   :long-description "Maxima package implementing a function to guess exact values for inexact (float and bigfloat) numbers, and also a function for finding integer relations among inexact numbers."
   
   :components
-  ((:file "integer_relation")
+  ((:file "pslq_integer_relation")
    (:maxima-file "identify")
    (:info-index "identify-index")))

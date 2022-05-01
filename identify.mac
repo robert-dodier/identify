@@ -46,13 +46,13 @@ define_variable(identify_powersum_min_degree,
 define_variable(identify_algebraic_degree,
   4, fixnum)$
 
-if get(integer_relation, version)=false
+if get(pslq_integer_relation, version)=false
   then if load_pathname # false
-         then load (sconcat (pathname_directory (load_pathname), "/integer_relation.lisp"))
-       else load ("integer_relation.lisp");
+         then load (sconcat (pathname_directory (load_pathname), "/pslq_integer_relation.lisp"))
+       else load ("pslq_integer_relation.lisp");
 
 identify_integer_relation(x, [threshold]) := block(
-  [relation : integer_relation(x)],
+  [relation : pslq_integer_relation(x)],
   if length(threshold)#1 then threshold:100 else threshold:threshold[1],
   if relation=false then return(false),
   if apply("+", (map(abs, relation)))>threshold then return(false),
