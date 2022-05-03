@@ -1,6 +1,9 @@
 # pslq
 A [Maxima](http://maxima.sf.net/) package for the PSLQ algorithm.
 
+Forked from: https://github.com/andrejv/identify
+Author: Andrej Vodopivec.
+
     (%i1) load("pslq.mac")$
     (%i2) root: float(sin(%pi/12))$
     (%i3) guess_exact_value(root);
