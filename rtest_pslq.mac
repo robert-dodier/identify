@@ -1,7 +1,7 @@
 (kill (all),
  reset (),
  if ?mget ('guess_exact_value, '?mexpr) = false
-     then load ("identify.mac"),
+     then load ("pslq.mac"),
  0);
 0;
 
